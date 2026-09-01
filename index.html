@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="doc-title">Kuis Interaktif</title>
+<title id="doc-title">Manajemen Kuis Guru & Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -57,132 +57,14 @@
   .btn-danger:hover{background:rgba(193,87,63,0.1);}
   .btn-sm{padding:8px 14px; font-size:13px;}
 
-  .link-btn{
-    background:none; border:none; color:var(--text-dim); font-family:'IBM Plex Mono', monospace;
-    font-size:12px; cursor:pointer; text-decoration:underline; text-underline-offset:3px;
-  }
-  .link-btn:hover{color:var(--gold);}
-
   /* START SCREEN */
   #screen-start{background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:56px 48px; text-align:center;}
   .spiral{margin:0 auto 28px; display:block;}
   #screen-start h1{font-size:32px; line-height:1.25; margin-bottom:14px;}
   #screen-start p.sub{color:var(--text-dim); font-size:15px; line-height:1.65; max-width:480px; margin:0 auto 32px;}
-  .meta-row{
-    display:flex; justify-content:center; gap:32px; font-family:'IBM Plex Mono', monospace;
-    font-size:13px; color:var(--text-dim); margin-bottom:36px; flex-wrap:wrap;
-  }
-  .meta-row span b{color:var(--gold); font-weight:500;}
-  .id-form{display:flex; gap:12px; max-width:500px; margin:0 auto 12px; flex-wrap:wrap;}
-  .id-field{flex:1; min-width:200px; text-align:left;}
-  .id-field label{
-    display:block; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--text-dim); margin-bottom:6px;
-  }
-  .id-field input, .id-field select {
-    width:100%; background:var(--panel-2); border:1px solid var(--line-strong); border-radius:2px;
-    color:var(--text); font-family:'IBM Plex Sans', sans-serif; font-size:15px; padding:11px 12px;
-  }
-  .id-field input:focus, .id-field select:focus {outline:none; border-color:var(--gold-dim);}
+  
   .id-error{color:var(--rose); font-size:13px; font-family:'IBM Plex Mono', monospace; height:18px; margin:0 0 20px; text-align:center;}
   .admin-entry{margin-top:28px; padding-top:20px; border-top:1px solid var(--line);}
-
-  /* RULER PROGRESS */
-  .ruler{position:relative; height:34px; margin-bottom:28px;}
-  .ruler-track{position:absolute; top:16px; left:0; right:0; height:1px; background:var(--line-strong);}
-  .ruler-fill{position:absolute; top:16px; left:0; height:1px; background:var(--gold); transition:width .3s ease;}
-  .ruler-ticks{position:absolute; top:0; left:0; right:0; height:34px; display:flex; justify-content:space-between;}
-  .tick{width:1px; background:var(--line); height:8px; margin-top:12px;}
-  .ruler-head{
-    position:absolute; top:0; width:30px; height:30px; margin-left:-15px; background:var(--gold);
-    color:var(--bg); border-radius:50%; display:flex; align-items:center; justify-content:center;
-    font-family:'IBM Plex Mono', monospace; font-size:11px; font-weight:600; transition:left .3s ease;
-  }
-
-  .quiz-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; flex-wrap:wrap; gap:6px;}
-  .qnum{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--text-dim);}
-  .qcat{
-    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
-    color:var(--teal); border:1px solid rgba(79,165,152,0.35); border-radius:2px; padding:3px 8px;
-  }
-  
-  /* TIMER STYLES */
-  .timer-badge{
-    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--text-dim);
-    margin-left: auto; margin-right: 12px;
-  }
-  .timer-badge b{color:var(--teal); transition: color 0.3s ease; font-size:14px;}
-  .timer-badge.warning b{color:var(--rose); animation: blink 1s infinite;}
-  @keyframes blink { 50% { opacity: 0.5; } }
-
-  .score-badge{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--text-dim);}
-  .score-badge b{color:var(--gold);}
-
-  /* QUESTION CARD */
-  #screen-quiz .card{background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:32px 32px 24px; margin-bottom:24px;}
-  .qimg{width:100%; max-height:320px; object-fit:contain; border-radius:3px; margin-bottom:20px; background:var(--panel-2); display:block;}
-  .qtext{font-family:'Fraunces', serif; font-size:20px; line-height:1.5; font-weight:500; margin:0 0 24px;}
-  .options{display:flex; flex-direction:column; gap:10px;}
-  .opt{
-    display:flex; align-items:flex-start; gap:14px; padding:14px 16px; border:1px solid var(--line-strong);
-    border-radius:3px; cursor:pointer; text-align:left; background:transparent; color:var(--text);
-    font-family:'IBM Plex Sans', sans-serif; font-size:15px; line-height:1.5;
-    transition: border-color .12s ease, background .12s ease; width:100%;
-  }
-  .opt:hover:not(.locked){border-color:var(--gold-dim); background:var(--panel-2);}
-  .opt .letter{
-    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; width:22px; height:22px;
-    min-width:22px; border-radius:50%; border:1px solid var(--line-strong); display:flex;
-    align-items:center; justify-content:center; color:var(--text-dim);
-  }
-  .opt.correct{border-color:var(--teal); background:rgba(79,165,152,0.10);}
-  .opt.correct .letter{border-color:var(--teal); color:var(--teal); background:rgba(79,165,152,0.15);}
-  .opt.wrong{border-color:var(--rose); background:rgba(193,87,63,0.10);}
-  .opt.wrong .letter{border-color:var(--rose); color:var(--rose); background:rgba(193,87,63,0.15);}
-  .opt.dim{opacity:0.45;}
-
-  /* ESSAY ANSWER BOX */
-  .essay-box{display:flex; flex-direction:column; gap:12px;}
-  .essay-textarea{
-    width:100%; min-height:160px; background:var(--panel-2); border:1px solid var(--line-strong); border-radius:3px;
-    color:var(--text); font-family:'IBM Plex Sans', sans-serif; font-size:15px; line-height:1.6; padding:14px 16px; resize:vertical;
-  }
-  .essay-textarea:focus{outline:none; border-color:var(--gold-dim);}
-  .essay-textarea:disabled{opacity:0.7;}
-  .essay-hint{font-size:12px; color:var(--text-dim); font-family:'IBM Plex Mono', monospace;}
-  .essay-feedback{padding:14px 16px; border-radius:3px; border:1px solid var(--line-strong); background:var(--panel-2); font-size:13px; color:var(--text-dim);}
-  .essay-feedback b{color:var(--gold);}
-
-  .quiz-footer{display:flex; justify-content:flex-end;}
-  .quiz-footer .btn{opacity:0; pointer-events:none; transition:opacity .15s ease;}
-  .quiz-footer .btn.show{opacity:1; pointer-events:auto;}
-
-  /* RESULT SCREEN */
-  #screen-result .card{background:var(--panel); border:1px solid var(--line); border-radius:4px; padding:40px;}
-  .score-hero{text-align:center; padding-bottom:28px; border-bottom:1px solid var(--line); margin-bottom:28px;}
-  .score-hero .big{font-family:'IBM Plex Mono', monospace; font-size:56px; font-weight:600; color:var(--gold); line-height:1;}
-  .score-hero .pct{color:var(--text-dim); font-size:14px; margin-top:8px; font-family:'IBM Plex Mono', monospace;}
-  .score-hero .msg{font-family:'Fraunces', serif; font-size:19px; margin-top:16px;}
-  .student-line{text-align:center; font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--text-dim); margin-top:10px;}
-  .student-line b{color:var(--text);}
-
-  .cat-row{margin-bottom:14px;}
-  .cat-row .cat-label{display:flex; justify-content:space-between; font-size:13px; color:var(--text-dim); font-family:'IBM Plex Mono', monospace; margin-bottom:6px;}
-  .cat-bar-track{height:6px; background:var(--panel-2); border-radius:3px; overflow:hidden;}
-  .cat-bar-fill{height:100%; background:var(--teal); border-radius:3px;}
-
-  .review-toggle{margin-top:28px; text-align:center;}
-  #review-list{display:none; margin-top:20px;}
-  #review-list.show{display:block;}
-  .review-item{padding:16px 0; border-top:1px solid var(--line);}
-  .review-item .rq{font-size:14px; margin-bottom:8px; line-height:1.5;}
-  .review-item .rq b{font-family:'IBM Plex Mono', monospace; color:var(--text-dim); font-weight:500;}
-  .review-item .ra{font-size:13px; font-family:'IBM Plex Mono', monospace; margin-bottom:2px;}
-  .review-item .ra.wrong{color:var(--rose);}
-  .review-item .ra.right{color:var(--teal);}
-  .review-item .ra.timeout{color:var(--gold);}
-
-  .result-actions{display:flex; justify-content:center; gap:12px; margin-top:32px; flex-wrap:wrap;}
   .hidden{display:none !important;}
 
   /* MODAL (admin/guru login) */
@@ -274,7 +156,6 @@
 
   @media (max-width:520px){
     #screen-start{padding:40px 24px;}
-    #screen-quiz .card{padding:24px 20px;}
     #screen-admin, #screen-guru{padding:20px;}
     .live-table-wrapper { font-size: 11px; }
   }
@@ -299,6 +180,7 @@
     <p class="eyebrow">Manajemen Ujian</p>
     <h1 id="main-title">Memuat Judul...</h1>
     <p class="sub">Halaman khusus Guru &amp; Admin untuk mengelola bank soal, token ujian, dan memantau hasil siswa.</p>
+    
     <div class="admin-entry" style="margin-top:32px; padding-top:0; border-top:none;">
       <button class="btn" id="btn-guru-open">Masuk (Panel Guru)</button>
       <span style="display:inline-block; width:14px;"></span>
@@ -349,7 +231,34 @@
           </div>
           <div class="filter-item">
             <label>Jurusan</label>
-            <select id="guru-filter-jurusan" class="filter-select" onchange="renderActiveTokens('guru')"><option value="ALL">Semua Jurusan</option></select>
+            <select id="guru-filter-jurusan" class="filter-select" onchange="renderActiveTokens('guru')">
+              <option value="ALL">Semua Jurusan</option>
+              <optgroup label="Teknik Komputer Jaringan">
+                <option value="TKJ">TKJ (Umum)</option>
+                <option value="TKJ 1">TKJ 1</option>
+                <option value="TKJ 2">TKJ 2</option>
+                <option value="TKJ 3">TKJ 3</option>
+              </optgroup>
+              <optgroup label="Teknik Sepeda Motor">
+                <option value="TSM">TSM (Umum)</option>
+                <option value="TSM 1">TSM 1</option>
+                <option value="TSM 2">TSM 2</option>
+              </optgroup>
+              <optgroup label="Agribisnis Tanaman Perkebunan">
+                <option value="ATP">ATP (Umum)</option>
+                <option value="ATP 1">ATP 1</option>
+                <option value="ATP 2">ATP 2</option>
+              </optgroup>
+              <optgroup label="Akuntansi">
+                <option value="AK">AK (Umum)</option>
+                <option value="AK 1">AK 1</option>
+                <option value="AK 2">AK 2</option>
+              </optgroup>
+              <optgroup label="Jurusan Lainnya">
+                <option value="DKV">DKV</option>
+                <option value="BD">BD</option>
+              </optgroup>
+            </select>
           </div>
           <div class="filter-item">
             <label>Mata Pelajaran</label>
@@ -406,7 +315,7 @@
             <label>Pilih Kelas</label>
             <select id="guru-bank-filter-kelas" class="filter-select">
               <option value="ALL">Semua Kelas</option>
-			  <option value="Kosong">Kosong</option>
+              <option value="Kosong">Kosong</option>
               <option value="X">X</option>
               <option value="XI">XI</option>
               <option value="XII">XII</option>
@@ -416,29 +325,39 @@
             <label>Pilih Jurusan</label>
             <select id="guru-bank-filter-jurusan" class="filter-select">
               <option value="ALL">Semua Jurusan</option>
-			   <option value="Kosong">Kosong</option>
-			   <option value="TKJ">TKJ</option>
-              <option value="TKJ">TKJ 1</option>
-		   <option value="TKJ">TKJ 2</option>
-		    <option value="TKJ">TKJ 3</option>
-          <option value="TSM">TSM</option>
-		   <option value="TSM">TSM 1</option>
-		    <option value="TSM">TSM 2</option>
-          <option value="ATP">ATP</option>
-		  <option value="ATP">ATP 1</option>
-		  <option value="ATP">ATP 2</option>
-          <option value="AK">AK</option>
-		   <option value="AK">AK 1</option>
-		    <option value="AK">AK 2</option>
-			 <option value="DKV">DKV</option>
-          <option value="BD">BD</option>
+              <option value="Kosong">Kosong</option>
+              <optgroup label="Teknik Komputer Jaringan">
+                <option value="TKJ">TKJ (Umum)</option>
+                <option value="TKJ 1">TKJ 1</option>
+                <option value="TKJ 2">TKJ 2</option>
+                <option value="TKJ 3">TKJ 3</option>
+              </optgroup>
+              <optgroup label="Teknik Sepeda Motor">
+                <option value="TSM">TSM (Umum)</option>
+                <option value="TSM 1">TSM 1</option>
+                <option value="TSM 2">TSM 2</option>
+              </optgroup>
+              <optgroup label="Agribisnis Tanaman Perkebunan">
+                <option value="ATP">ATP (Umum)</option>
+                <option value="ATP 1">ATP 1</option>
+                <option value="ATP 2">ATP 2</option>
+              </optgroup>
+              <optgroup label="Akuntansi">
+                <option value="AK">AK (Umum)</option>
+                <option value="AK 1">AK 1</option>
+                <option value="AK 2">AK 2</option>
+              </optgroup>
+              <optgroup label="Jurusan Lainnya">
+                <option value="DKV">DKV</option>
+                <option value="BD">BD</option>
+              </optgroup>
             </select>
           </div>
           <div class="filter-item">
             <label>Mata Pelajaran</label>
             <select id="guru-bank-filter-mapel" class="filter-select" onchange="handleMapelFilterChange('guru')">
               <option value="ALL">Semua Mata Pelajaran</option>
-			   <option value="Kosong">Kosong</option>
+              <option value="Kosong">Kosong</option>
               <option value="__new__">+ Mata Pelajaran Baru...</option>
             </select>
           </div>
@@ -558,7 +477,7 @@
             <label>Pilih Kelas</label>
             <select id="admin-bank-filter-kelas" class="filter-select">
               <option value="ALL">Semua Kelas</option>
-			   <option value="Kosong">Kosong</option>
+              <option value="Kosong">Kosong</option>
               <option value="X">X</option>
               <option value="XI">XI</option>
               <option value="XII">XII</option>
@@ -568,28 +487,38 @@
             <label>Pilih Jurusan</label>
             <select id="admin-bank-filter-jurusan" class="filter-select">
               <option value="ALL">Semua Jurusan</option>
-			  <option value="Kosong">Kosong</option>
-			  <option value="TKJ">TKJ</option>
-              <option value="TKJ">TKJ 1</option>
-		   <option value="TKJ">TKJ 2</option>
-		    <option value="TKJ">TKJ 3</option>
-          <option value="TSM">TSM</option>
-		   <option value="TSM">TSM 1</option>
-		    <option value="TSM">TSM 2</option>
-          <option value="ATP">ATP</option>
-		  <option value="ATP">ATP 1</option>
-		  <option value="ATP">ATP 2</option>
-          <option value="AK">AK</option>
-		   <option value="AK">AK 1</option>
-		    <option value="AK">AK 2</option>
-			 <option value="DKV">DKV</option>
-          <option value="BD">BD</option>
+              <option value="Kosong">Kosong</option>
+              <optgroup label="Teknik Komputer Jaringan">
+                <option value="TKJ">TKJ (Umum)</option>
+                <option value="TKJ 1">TKJ 1</option>
+                <option value="TKJ 2">TKJ 2</option>
+                <option value="TKJ 3">TKJ 3</option>
+              </optgroup>
+              <optgroup label="Teknik Sepeda Motor">
+                <option value="TSM">TSM (Umum)</option>
+                <option value="TSM 1">TSM 1</option>
+                <option value="TSM 2">TSM 2</option>
+              </optgroup>
+              <optgroup label="Agribisnis Tanaman Perkebunan">
+                <option value="ATP">ATP (Umum)</option>
+                <option value="ATP 1">ATP 1</option>
+                <option value="ATP 2">ATP 2</option>
+              </optgroup>
+              <optgroup label="Akuntansi">
+                <option value="AK">AK (Umum)</option>
+                <option value="AK 1">AK 1</option>
+                <option value="AK 2">AK 2</option>
+              </optgroup>
+              <optgroup label="Jurusan Lainnya">
+                <option value="DKV">DKV</option>
+                <option value="BD">BD</option>
+              </optgroup>
             </select>
           </div>
           <div class="filter-item">
             <label>Mata Pelajaran</label>
             <select id="admin-bank-filter-mapel" class="filter-select" onchange="handleMapelFilterChange('admin')">
-			<option value="Kosong">Kosong</option>
+              <option value="Kosong">Kosong</option>
               <option value="ALL">Semua Mata Pelajaran</option>
               <option value="__new__">+ Mata Pelajaran Baru...</option>
             </select>
@@ -682,7 +611,34 @@
           </div>
           <div class="filter-item">
             <label>Jurusan</label>
-            <select id="admin-filter-jurusan" class="filter-select" onchange="renderActiveTokens('admin')"><option value="ALL">Semua Jurusan</option></select>
+            <select id="admin-filter-jurusan" class="filter-select" onchange="renderActiveTokens('admin')">
+              <option value="ALL">Semua Jurusan</option>
+              <optgroup label="Teknik Komputer Jaringan">
+                <option value="TKJ">TKJ (Umum)</option>
+                <option value="TKJ 1">TKJ 1</option>
+                <option value="TKJ 2">TKJ 2</option>
+                <option value="TKJ 3">TKJ 3</option>
+              </optgroup>
+              <optgroup label="Teknik Sepeda Motor">
+                <option value="TSM">TSM (Umum)</option>
+                <option value="TSM 1">TSM 1</option>
+                <option value="TSM 2">TSM 2</option>
+              </optgroup>
+              <optgroup label="Agribisnis Tanaman Perkebunan">
+                <option value="ATP">ATP (Umum)</option>
+                <option value="ATP 1">ATP 1</option>
+                <option value="ATP 2">ATP 2</option>
+              </optgroup>
+              <optgroup label="Akuntansi">
+                <option value="AK">AK (Umum)</option>
+                <option value="AK 1">AK 1</option>
+                <option value="AK 2">AK 2</option>
+              </optgroup>
+              <optgroup label="Jurusan Lainnya">
+                <option value="DKV">DKV</option>
+                <option value="BD">BD</option>
+              </optgroup>
+            </select>
           </div>
           <div class="filter-item">
             <label>Mata Pelajaran</label>
@@ -805,7 +761,7 @@ function loadDataFromGoogle() {
        id: generateId()
     }));
 
-    document.getElementById('doc-title').textContent = currentTitle + " — Ujian";
+    document.getElementById('doc-title').textContent = currentTitle + " — Panel Pengelola";
     document.getElementById('main-title').textContent = currentTitle;
   };
 
@@ -926,8 +882,6 @@ function bindTabs(btnLiveId, btnSoalId, contentLiveId, contentSoalId, statusId) 
     const prefix = authType === 'admin' ? 'admin' : 'guru';
     populateMapelFilterOptions(prefix);
     renderTokenManager(prefix); 
-    
-    // Render list agar summary langsung muncul meskipun tidak diklik
     renderQuestionList();
   });
 }
@@ -950,7 +904,7 @@ function openGuruPanel(){
   document.getElementById('tab-btn-guru-live').click(); 
 }
 
-// RENDER MANAJEMEN STATUS & TANGGAL TOKEN (Admin: semua token, Guru: hanya token miliknya sendiri)
+// RENDER MANAJEMEN STATUS & TANGGAL TOKEN
 window.renderTokenManager = function(prefix) {
   const container = document.getElementById(`${prefix}-token-manager-list`);
   if(!container) return;
@@ -1005,7 +959,7 @@ window.updateTokenSched = function(tk, field, val) {
     tokenSchedule[tk][field] = val;
 };
 
-// RENDER HANYA TOKEN YANG BERSTATUS AKTIF BERDASARKAN JURUSAN, KELAS, & MAPEL PADA TAB LIVE
+// RENDER TOKEN AKTIF & PENERAPAN LOGIKA .INCLUDES()
 window.renderActiveTokens = function(prefix) {
   const containerEl = document.getElementById(`${prefix}-live-token-list`);
   if(!containerEl) return;
@@ -1027,16 +981,12 @@ window.renderActiveTokens = function(prefix) {
     const data = tokenMap[tk];
     const sched = tokenSchedule[tk] || { status: 'aktif', tanggal: '' };
     
-    // 1. Hanya tampilkan jika statusnya 'aktif'
     if(sched.status === 'nonaktif') return false;
-    
-    // 2. Saring berdasarkan filter Kelas
     if(selKelas !== 'ALL' && data.kelas !== selKelas) return false;
+    
+    // Pembaruan Logika .includes() pada Filter Jurusan
+    if(selJurusan !== 'ALL' && !(data.jurusan || '').toUpperCase().includes(selJurusan.toUpperCase())) return false;
 
-    // 3. Saring berdasarkan filter Jurusan
-    if(selJurusan !== 'ALL' && data.jurusan !== selJurusan) return false;
-
-    // 4. Saring berdasarkan filter Mata Pelajaran (Exact/Case-Insensitive Match)
     if(selMapel !== 'ALL' && data.mapel.toLowerCase().trim() !== selMapel.toLowerCase().trim()) return false;
 
     return true;
@@ -1089,12 +1039,11 @@ function fetchAndPopulateFilters(tbodyId, btnId) {
     cleanup(); if(btn) { btn.disabled = false; btn.textContent = "🔄 Perbarui Data Live"; }
     if(response && response.data) {
       ALL_REKAP_DATA = response.data;
-      const uniqueDates = new Set(); const uniqueClasses = new Set(); const uniqueMajors = new Set(); const uniqueMapels = new Set();
+      const uniqueDates = new Set(); const uniqueClasses = new Set(); const uniqueMapels = new Set();
       response.data.forEach(row => {
         const dateStr = row[0] ? String(row[0]).split(',')[0].split(' ')[0] : 'Tanpa Tanggal';
         const cls = row[2] ? String(row[2]).trim() : 'Tanpa Kelas';
-        const mjr = row[3] ? String(row[3]).trim() : 'Tanpa Jurusan';
-        if (row[0]) uniqueDates.add(dateStr); uniqueClasses.add(cls); uniqueMajors.add(mjr);
+        if (row[0]) uniqueDates.add(dateStr); uniqueClasses.add(cls);
 
         const catDetail = row[7] ? String(row[7]) : '';
         if (catDetail) {
@@ -1108,16 +1057,15 @@ function fetchAndPopulateFilters(tbodyId, btnId) {
       const fillSelect = (id, setItem, allText) => {
         const el = document.getElementById(id); if(!el) return;
         let opts = `<option value="ALL">${allText}</option>`;
-        [...setItem].sort().forEach(item => { if(item !== 'Tanpa Kelas' && item !== 'Tanpa Jurusan' && item !== 'Tanpa Tanggal') { opts += `<option value="${escapeAttr(item)}">${escapeHtml(item)}</option>`; } });
+        [...setItem].sort().forEach(item => { if(item !== 'Tanpa Kelas' && item !== 'Tanpa Tanggal') { opts += `<option value="${escapeAttr(item)}">${escapeHtml(item)}</option>`; } });
         if(setItem.has('Tanpa Kelas')) opts += `<option value="Tanpa Kelas">Tanpa Kelas</option>`;
-        if(setItem.has('Tanpa Jurusan')) opts += `<option value="Tanpa Jurusan">Tanpa Jurusan</option>`;
         if(setItem.has('Tanpa Tanggal')) opts += `<option value="Tanpa Tanggal">Tanpa Tanggal</option>`;
         el.innerHTML = opts;
       };
 
-      fillSelect('admin-filter-tanggal', uniqueDates, 'Semua Tanggal'); fillSelect('admin-filter-kelas', uniqueClasses, 'Semua Kelas'); fillSelect('admin-filter-jurusan', uniqueMajors, 'Semua Jurusan');
+      fillSelect('admin-filter-tanggal', uniqueDates, 'Semua Tanggal'); fillSelect('admin-filter-kelas', uniqueClasses, 'Semua Kelas'); 
       fillSelect('admin-filter-matapelajaran', uniqueMapels, 'Semua Mata Pelajaran');
-      fillSelect('guru-filter-tanggal', uniqueDates, 'Semua Tanggal'); fillSelect('guru-filter-kelas', uniqueClasses, 'Semua Kelas'); fillSelect('guru-filter-jurusan', uniqueMajors, 'Semua Jurusan');
+      fillSelect('guru-filter-tanggal', uniqueDates, 'Semua Tanggal'); fillSelect('guru-filter-kelas', uniqueClasses, 'Semua Kelas'); 
       fillSelect('guru-filter-matapelajaran', uniqueMapels, 'Semua Mata Pelajaran');
 
       fetchOnlyLiveTable(tbodyId);
@@ -1163,10 +1111,14 @@ function downloadRekapNilaiLocal(btnId, prefix) {
     const rowClass = row[2] ? String(row[2]).trim() : 'Tanpa Kelas';
     const rowMajor = row[3] ? String(row[3]).trim() : 'Tanpa Jurusan';
     const rowCatText = row[7] ? String(row[7]).toLowerCase() : '';
+    
     let match = true;
     if (selTanggal !== "ALL" && rowDate !== selTanggal) match = false;
     if (selKelas !== "ALL" && rowClass !== selKelas) match = false;
-    if (selJurusan !== "ALL" && rowMajor !== selJurusan) match = false;
+    
+    // Pembaruan Logika .includes() untuk Unduh Rekap
+    if (selJurusan !== "ALL" && !rowMajor.toUpperCase().includes(selJurusan.toUpperCase())) match = false;
+    
     if (selKategori !== "ALL" && !rowCatText.includes(selKategori)) match = false;
     return match;
   });
@@ -1212,11 +1164,11 @@ function populateMapelFilterOptions(prefix){
   const sel = document.getElementById(`${prefix}-bank-filter-mapel`); if(!sel) return;
   const prevVal = sel.value;
   const unique = [...new Set(QUESTIONS.map(q => (q.category || 'Mata Pelajaran').trim()).filter(Boolean))].sort();
-  let opts = `<option value="ALL">Semua Mata Pelajaran</option>`;
+  let opts = `<option value="ALL">Semua Mata Pelajaran</option><option value="Kosong">Kosong</option>`;
   unique.forEach(cat => { opts += `<option value="${escapeAttr(cat)}">${escapeHtml(cat)}</option>`; });
   opts += `<option value="__new__">+ Mata Pelajaran Baru...</option>`;
   sel.innerHTML = opts;
-  if(unique.includes(prevVal) || prevVal === 'ALL') sel.value = prevVal;
+  if(unique.includes(prevVal) || prevVal === 'ALL' || prevVal === 'Kosong') sel.value = prevVal;
 }
 
 function getBankFilter(prefix){
@@ -1256,9 +1208,16 @@ function renderQuestionList() {
   QUESTIONS.forEach((q, idx) => {
     let match = true;
     if (authType === 'guru' && (q.guru || 'Admin') !== loggedInGuruName) match = false;
-    if (kelas !== "ALL" && (q.kelas || "") !== kelas) match = false;
-    if (jurusan !== "ALL" && (q.jurusan || "") !== jurusan) match = false;
-    if (mapel !== "ALL" && mapel !== "__new__" && (q.category || "Mata Pelajaran") !== mapel) match = false;
+    
+    // Logika Filter yang Diperbarui (.includes)
+    if (kelas !== "ALL" && kelas !== "Kosong" && (q.kelas || "") !== kelas) match = false;
+    if (kelas === "Kosong" && (q.kelas || "") !== "") match = false;
+
+    if (jurusan !== "ALL" && jurusan !== "Kosong" && !(q.jurusan || "").toUpperCase().includes(jurusan.toUpperCase())) match = false;
+    if (jurusan === "Kosong" && (q.jurusan || "") !== "") match = false;
+
+    if (mapel !== "ALL" && mapel !== "Kosong" && mapel !== "__new__" && (q.category || "Mata Pelajaran") !== mapel) match = false;
+    if (mapel === "Kosong" && (q.category || "") !== "") match = false;
     
     if (match) { 
        htmlCards.push(buildQuestionCard(q, idx, containerId)); 
@@ -1266,7 +1225,6 @@ function renderQuestionList() {
     }
   });
 
-  // TAMBAHAN: Tampilkan Summary Jumlah Soal 
   const summaryDiv = document.createElement('div');
   summaryDiv.style.marginBottom = '16px';
   summaryDiv.innerHTML = `<span style="background:var(--panel-2); color:var(--teal); padding:6px 12px; border-radius:3px; font-size:13px; font-family:'IBM Plex Mono', monospace; border:1px solid var(--line-strong);">Jumlah Soal Ditampilkan: <b style="color:var(--gold); font-size:14px;">${displayedCount}</b></span>`;
@@ -1286,7 +1244,11 @@ function buildQuestionCard(q, idx, containerId){
   const card = document.createElement('div'); card.className = 'qcard-admin';
   const isEssay = q.type === 'essay';
   const classOpts = ["", "X", "XI", "XII"].map(c => `<option value="${c}" ${q.kelas === c ? 'selected' : ''}>${c === "" ? "--Pilih Kelas--" : c}</option>`).join('');
-  const jurOpts = ["", "TKJ", "DKV", "TSM", "ATP", "AK", "BD"].map(j => `<option value="${j}" ${q.jurusan === j ? 'selected' : ''}>${j === "" ? "--Pilih Jurusan--" : j}</option>`).join('');
+  
+  // Pilihan Jurusan yang Akurat
+  const jurOptsArray = ["", "TKJ", "TKJ 1", "TKJ 2", "TKJ 3", "TSM", "TSM 1", "TSM 2", "ATP", "ATP 1", "ATP 2", "AK", "AK 1", "AK 2", "DKV", "BD"];
+  const jurOpts = jurOptsArray.map(j => `<option value="${j}" ${q.jurusan === j ? 'selected' : ''}>${j === "" ? "--Pilih Jurusan--" : j}</option>`).join('');
+  
   const optsHtml = (q.options || []).map((opt, i) => `<div class="opt-edit-row"><span class="letter-tag">${LETTERS[i]}</span><input type="radio" name="correct-${q.id}" value="${i}" ${q.correct === i ? 'checked' : ''} onchange="updateQ('correct', '${q.id}', this.value)"><input type="text" class="opt-input" value="${escapeAttr(opt)}" style="flex:1;" oninput="updateQ('options', '${q.id}', this.value, ${i})"></div>`).join('');
 
   const answerBlockHtml = isEssay ? `
@@ -1294,7 +1256,7 @@ function buildQuestionCard(q, idx, containerId){
       <div>
         <span class="field-label">Kata kunci penilaian (pisahkan dengan koma, contoh: keseimbangan, kontras, kesatuan)</span>
         <input type="text" class="opt-input" placeholder="kata kunci 1, kata kunci 2, ..." value="${escapeAttr(q.keywords || '')}" oninput="updateQ('keywords', '${q.id}', this.value)">
-        <p style="font-size:11px; color:var(--text-dim); margin:6px 0 0;">Sistem akan menghitung skor sementara otomatis (%) berdasarkan berapa banyak kata kunci ini muncul di jawaban siswa. Ambang lulus otomatis: <b style="color:var(--gold);">${ESSAY_PASS_THRESHOLD}%</b>. Jawaban lengkap siswa tetap tersimpan di Rekap Nilai untuk dicek ulang oleh guru.</p>
+        <p style="font-size:11px; color:var(--text-dim); margin:6px 0 0;">Sistem akan menghitung skor sementara otomatis (%) berdasarkan berapa banyak kata kunci ini muncul di jawaban siswa.</p>
       </div>
     </div>
     <div class="row">
@@ -1340,10 +1302,9 @@ function buildQuestionCard(q, idx, containerId){
     ${answerBlockHtml}
     <div class="row">
       <div>
-        <span class="field-label">Gambar soal (opsional — tempel link URL gambar, jangan upload file)</span>
+        <span class="field-label">Gambar soal (opsional — tempel link URL gambar)</span>
         <input type="text" class="image-url-input" placeholder="https://..." value="${escapeAttr(q.image || '')}" oninput="updateQ('image', '${q.id}', this.value); this.nextElementSibling.src=this.value; this.nextElementSibling.style.display=this.value?'block':'none';">
         <img class="img-preview" ${q.image ? `src="${escapeAttr(q.image)}" style="display:block;"` : 'style="display:none;"'}>
-        <p style="font-size:11px; color:var(--text-dim); margin:6px 0 0;">Gunakan link gambar dari internet (misal hasil upload ke Google Drive/Imgur/dsb dengan akses publik). Upload file langsung tidak didukung karena akan membuat data terlalu besar untuk Google Sheets dan bisa menyebabkan sistem gagal terhubung.</p>
       </div>
     </div>
     <div class="qcard-admin-footer">
@@ -1364,10 +1325,10 @@ function handleAddBlankQuestion() {
   
   QUESTIONS.push({ 
     id: generateId(), text: '', image: '', options: ['', '', '', '', ''], correct: 0, 
-    category: (mapel && mapel !== 'ALL' && mapel !== '__new__') ? mapel : 'Mata Pelajaran', token: lastToken, 
-    kelas: (kelas && kelas !== 'ALL') ? kelas : '', jurusan: (jurusan && jurusan !== 'ALL') ? jurusan : '',
-    guru: loggedInGuruName || 'Admin', // TAMBAHAN: Set nama guru otomatis
-    type: 'pg', keywords: '', idealAnswer: '', customTimer: '' // TAMBAHAN: dukungan soal essay & timer khusus
+    category: (mapel && mapel !== 'ALL' && mapel !== '__new__' && mapel !== 'Kosong') ? mapel : 'Mata Pelajaran', token: lastToken, 
+    kelas: (kelas && kelas !== 'ALL' && kelas !== 'Kosong') ? kelas : '', jurusan: (jurusan && jurusan !== 'ALL' && jurusan !== 'Kosong') ? jurusan : '',
+    guru: loggedInGuruName || 'Admin', 
+    type: 'pg', keywords: '', idealAnswer: '', customTimer: ''
   });
   renderQuestionList();
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -1385,8 +1346,9 @@ function handleDeleteFiltered(statusId) {
   QUESTIONS.forEach(q => {
     let match = true;
     if (kelas !== "ALL" && (q.kelas || "") !== kelas) match = false;
-    if (jurusan !== "ALL" && (q.jurusan || "") !== jurusan) match = false;
+    if (jurusan !== "ALL" && !(q.jurusan || "").toUpperCase().includes(jurusan.toUpperCase())) match = false;
     if (mapel !== "ALL" && mapel !== "__new__" && (q.category || "Mata Pelajaran") !== mapel) match = false;
+    
     if (match) { deletedCount++; } else { toKeep.push(q); }
   });
 
@@ -1407,9 +1369,9 @@ function handleImportJSON(inputId, tokenInputId, statusId) {
   
   const prefix = authType === 'admin' ? 'admin' : 'guru';
   const { kelas, jurusan, mapel } = getBankFilter(prefix);
-  const defaultKelas = (kelas && kelas !== 'ALL') ? kelas : '';
-  const defaultJurusan = (jurusan && jurusan !== 'ALL') ? jurusan : '';
-  const defaultMapel = (mapel && mapel !== 'ALL' && mapel !== '__new__') ? mapel : 'Mata Pelajaran';
+  const defaultKelas = (kelas && kelas !== 'ALL' && kelas !== 'Kosong') ? kelas : '';
+  const defaultJurusan = (jurusan && jurusan !== 'ALL' && jurusan !== 'Kosong') ? jurusan : '';
+  const defaultMapel = (mapel && mapel !== 'ALL' && mapel !== '__new__' && mapel !== 'Kosong') ? mapel : 'Mata Pelajaran';
 
   try {
     let cleanedText = jsonText.replace(/^(const|let|var)\s+\w+\s*=\s*/, '').replace(/;$/, '');
@@ -1423,14 +1385,14 @@ function handleImportJSON(inputId, tokenInputId, statusId) {
           id: generateId(), text: q.text || "", image: q.image || "", options: q.options || ["", "", "", "", ""],
           correct: q.correct !== undefined ? parseInt(q.correct) : 0, category: q.category || defaultMapel, token: q.token || tokenImport,
           kelas: q.kelas || defaultKelas, jurusan: q.jurusan || defaultJurusan,
-          guru: q.guru || loggedInGuruName || 'Admin', // TAMBAHAN: Set nama guru otomatis
+          guru: q.guru || loggedInGuruName || 'Admin', 
           type: isEssayImport ? 'essay' : 'pg', keywords: q.keywords || '', idealAnswer: q.idealAnswer || '', customTimer: q.customTimer || ''
         }); addedCount++;
       }
     });
     if(addedCount > 0){
       renderQuestionList(); document.getElementById(inputId).value = '';
-      populateMapelFilterOptions(prefix); // Refresh Mapel filter options just in case
+      populateMapelFilterOptions(prefix); 
       showStatus(statusId, `Berhasil mengimpor ${addedCount} soal.`, true);
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     } else { showStatus(statusId, 'Format data tidak sesuai.', false); }
