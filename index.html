@@ -1,115 +1,256 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Token Ulangan – Login Guru</title>
+<base target="_top">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Panel - BNZexm CBT</title>
 <style>
-:root{--bg:#f4f6fb;--card:#fff;--text:#1b2233;--muted:#6b7488;--primary:#4f46e5;--primary-t:#fff;--border:#d9deea;--err:#c62828;--warn:#d97706;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1320;--card:#181e30;--text:#e8ebf5;--muted:#98a1b8;--primary:#7c83ff;--primary-t:#0f1320;--border:#2b3350;--err:#ff7b7b;--warn:#fbbf24}}
-:root[data-theme="dark"]{--bg:#0f1320;--card:#181e30;--text:#e8ebf5;--muted:#98a1b8;--primary:#7c83ff;--primary-t:#0f1320;--border:#2b3350;--err:#ff7b7b;--warn:#fbbf24}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{--bg:#f4f5fa;--card:#fff;--tx:#1f2340;--mut:#6b7090;--pri:#4a5490;--pri2:#3a4377;--bd:#dfe2ef;--err:#c0392b}
+@media(prefers-color-scheme:dark){:root{--bg:#14162a;--card:#1e2140;--tx:#e8eaf8;--mut:#9aa0c8;--bd:#32365e;--pri:#6b77c9;--pri2:#5662b4}}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:20px}
-.wrap{max-width:720px;margin:0 auto}
-h1{font-size:1.3rem;margin:8px 0 18px;text-align:center}
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:16px;text-align:center}
-input,select{width:100%;padding:12px 14px;font-size:1.1rem;text-align:center;border:1.5px solid var(--border);border-radius:10px;background:transparent;color:var(--text);outline:none}
-select{text-align-last:center}
-button{width:100%;margin-top:14px;padding:13px;font-size:1rem;font-weight:700;border:0;border-radius:10px;background:var(--primary);color:var(--primary-t);cursor:pointer}
+body{margin:0;font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+h1{font-size:20px;margin:0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px}
+input{width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font-size:14px}
+label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px}
+button{padding:9px 14px;border:0;border-radius:8px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer;font-size:14px}
+button:hover{background:var(--pri2)}
+button.ghost{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+button.del{background:var(--err)}
 button:disabled{opacity:.6;cursor:wait}
-.msg{margin-top:10px;color:var(--err);font-size:.9rem;min-height:1.2em}
-.meta{color:var(--muted);font-size:.92rem}
-.tok{font-size:clamp(2.6rem,12vw,4.6rem);font-weight:800;letter-spacing:.18em;margin:10px 0 6px;font-variant-numeric:tabular-nums;padding-left:.18em}
-.sisa{font-weight:700;font-variant-numeric:tabular-nums}
-.sisa.warn{color:var(--warn)}
-.bar{height:6px;background:var(--bg);border-radius:6px;overflow:hidden;margin-top:10px}
-.bar i{display:block;height:100%;background:var(--primary);transition:width 1s linear}
-.hidden{display:none!important}
+.tabs{display:flex;gap:6px;margin-bottom:12px}
+.tabs button{background:var(--card);color:var(--tx);border:1px solid var(--bd)}
+.tabs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.bar input{flex:1;min-width:180px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:var(--pri);color:#fff;text-align:left;padding:10px;white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--bd);vertical-align:top;max-width:340px;overflow-wrap:anywhere}
+td.act{white-space:nowrap}
+td.act button{padding:5px 9px;font-size:12px;margin-right:4px}
+.empty{text-align:center;color:var(--mut);padding:24px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:5}
+.modal.show{display:flex}
+.modal .card{width:100%;max-width:520px;max-height:90vh;overflow:auto}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.gen{flex:0 0 auto!important}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:8px;display:none;z-index:9}
+.mut{color:var(--mut);font-size:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{padding:4px 12px;border:1px solid var(--bd);border-radius:99px;font-size:12px;cursor:pointer;background:var(--bg)}
+.chip:hover{background:var(--pri);color:#fff}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>🔑 Token Ulangan (Guru)</h1>
-  <div class="card" id="pinBox">
-    <select id="user"><option value="">Memuat daftar guru...</option></select>
-    <input id="pass" type="password" placeholder="Password" autocomplete="current-password" style="margin-top:10px">
-    <button id="masuk">Masuk</button>
-    <div class="msg" id="msg"></div>
-  </div>
-  <div class="hidden" id="head" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px">
-    <b id="halo"></b><button id="keluar" style="width:auto;margin:0;padding:8px 14px;background:transparent;color:var(--muted);border:1px solid var(--border)">Keluar</button>
-  </div>
-  <div id="list"></div>
-  <div class="meta hidden" id="info" style="text-align:center">Token berganti otomatis. Siswa yang baru berganti diberi toleransi 1 menit.</div>
+<div class="card" id="loginView" style="max-width:360px;margin:12vh auto">
+  <h1>🔐 Admin BNZexm CBT</h1>
+  <label>Password Admin</label>
+  <input type="password" id="pw" placeholder="Password" autocomplete="current-password">
+  <div style="margin-top:14px"><button id="btnLogin" style="width:100%">Masuk</button></div>
+  <div id="loginErr" style="display:none;color:#c0392b;font-size:13px;margin-top:10px"></div>
 </div>
+<div class="wrap" id="appView" style="display:none">
+  <header>
+    <h1>📚 Admin BNZexm CBT</h1>
+    <div><button class="ghost" id="btnRefresh">⟳ Muat Ulang</button> <button class="ghost" id="btnOut">Keluar</button></div>
+  </header>
+  <div id="err" style="display:none;background:#fff4d6;color:#4a3b00;border:1px solid #e0c867;border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:12px"></div>
+  <div class="tabs">
+    <button data-t="ujian" class="on">Ujian (Sheet 1)</button>
+    <button data-t="guru">Guru (Sheet 2)</button>
+  </div>
+  <div class="bar">
+    <input id="q" placeholder="Cari...">
+    <button id="btnAdd">+ Tambah</button>
+  </div>
+  <div class="card tw"><table id="tbl"></table></div>
+  <p class="mut" id="count"></p>
+</div>
+
+<div class="modal" id="modal">
+  <div class="card">
+    <h1 id="mTitle" style="font-size:18px"></h1>
+    <div id="mBody"></div>
+    <div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end">
+      <button class="ghost" id="mCancel">Batal</button>
+      <button id="mSave">Simpan</button>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJ63tXWqn6LyJAdOuT4CT3fejPlJcpEqh0rRJDF4FCi1txXudJ6nVGYFuN7FfRQz0/exec";
-const $ = id => document.getElementById(id);
-let user = "", pw = "", data = [], fetchedAt = 0, busy = false;
-
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function fmt(s){s=Math.max(0,s);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
-
-async function daftarGuru(){
-  try{
-    const res = await fetch(SCRIPT_URL + "?action=daftarGuru");
-    const r = await res.json();
-    if(!r.ok) throw new Error(r.error || "Gagal memuat");
-    $("user").innerHTML = '<option value="">Pilih Nama Guru</option>' + r.guru.map(g=>'<option value="'+esc(g.username)+'">'+esc(g.nama)+'</option>').join("");
-  }catch(e){ 
-    $("user").innerHTML = '<option value="">Gagal memuat daftar guru</option>'; 
+/* Penghubung ke Apps Script. Ganti API jika URL penerapan berubah. */
+(function () {
+  var API = "https://script.google.com/macros/s/AKfycbwAokyOBdnoPizKzFFiBU5xhMh694BjNwQEPEthHng8fTkhvWduOytSF0tF3GsrB4bQ/exec";
+  var MAP = { adminLogin: "login", adminGetExams: "list_exams", adminGetTeachers: "list_teachers",
+    adminAddExam: "add_exam", adminEditExam: "edit_exam", adminDeleteExam: "delete_exam",
+    adminAddTeacher: "add_teacher", adminEditTeacher: "edit_teacher", adminDeleteTeacher: "delete_teacher" };
+  function chain() {
+    var ok = function () {}, fail = function () {};
+    var p = new Proxy({}, { get: function (_, k) {
+      if (k === "withSuccessHandler") return function (f) { ok = f; return p; };
+      if (k === "withFailureHandler") return function (f) { fail = f; return p; };
+      return function (pass, arg) {
+        fetch(API, { method: "POST", body: JSON.stringify({ action: MAP[k], pass: pass, arg: arg }) })
+          .then(function (r) { return r.json(); })
+          .then(function (j) { if (j && j.fatal) fail({ message: j.message }); else ok(j && j.data !== undefined ? j.data : j); })
+          .catch(function () { fail({ message: "Gagal terhubung ke script. Cek URL dan akses penerapan (Siapa saja)." }); });
+      };
+    } });
+    return p;
   }
+  window.google = { script: {} };
+  Object.defineProperty(window.google.script, "run", { get: chain });
+})();
+</script>
+<script>
+let exams = [];
+let teachers = [];
+let tab = "ujian", editRow = null;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+function toast(m, err) {
+  const t = $("#toast"); t.textContent = m; t.style.background = err ? "#c0392b" : "#222";
+  t.style.display = "block"; clearTimeout(toast.t); toast.t = setTimeout(() => t.style.display = "none", 3000);
 }
 
-function keluar(){
-  user = pw = ""; data = []; $("list").innerHTML = "";
-  $("pass").value = ""; $("pinBox").classList.remove("hidden");
-  $("head").classList.add("hidden"); $("info").classList.add("hidden");
+function render() {
+  const q = $("#q").value.toLowerCase();
+  let h;
+  if (tab === "ujian") {
+    const rows = exams.filter(o => [o.token, o.mapel, o.kelas, o.link].join(" ").toLowerCase().includes(q));
+    h = "<thead><tr><th>TOKEN</th><th>MAPEL</th><th>KELAS</th><th>LINK FORM</th><th>WAKTU</th><th>AKSI</th></tr></thead><tbody>" +
+      (rows.map(o => `<tr><td>${esc(o.token)}</td><td>${esc(o.mapel)}</td><td>${esc(o.kelas)}</td>
+        <td>${o.link ? `<a href="${esc(o.link)}" target="_blank" rel="noopener">${esc(o.link.length > 45 ? o.link.slice(0, 45) + "…" : o.link)}</a>` : ""}</td>
+        <td>${esc(o.waktu)}</td><td class="act"><button data-e="${o.rowIndex}">Edit</button><button class="del" data-d="${o.rowIndex}">Hapus</button></td></tr>`).join("")
+        || '<tr><td colspan="6" class="empty">Belum ada data</td></tr>') + "</tbody>";
+    $("#count").textContent = rows.length + " ujian";
+  } else {
+    const rows = teachers.filter(o => (o.nama + " " + o.password + " " + o.tokens).toLowerCase().includes(q));
+    h = "<thead><tr><th>NAMA GURU</th><th>PASSWORD</th><th>DAFTAR TOKEN</th><th>AKSI</th></tr></thead><tbody>" +
+      (rows.map(o => `<tr><td>${esc(o.nama)}</td><td>${esc(o.password)}</td><td>${esc(o.tokens)}</td>
+        <td class="act"><button data-e="${o.rowIndex}">Edit</button><button class="del" data-d="${o.rowIndex}">Hapus</button></td></tr>`).join("")
+        || '<tr><td colspan="4" class="empty">Belum ada data</td></tr>') + "</tbody>";
+    $("#count").textContent = rows.length + " guru";
+  }
+  $("#tbl").innerHTML = h;
 }
 
-async function muat(){
-  if(busy) return; busy = true;
-  try{
-    const res = await fetch(SCRIPT_URL + "?action=tokenGuru&user=" + encodeURIComponent(user) + "&pass=" + encodeURIComponent(pw));
-    const r = await res.json();
-    if(!r.ok){ const m = r.error || "Gagal."; keluar(); $("msg").textContent = m; return; }
-    data = r.daftar; fetchedAt = Date.now();
-    $("halo").textContent = "Halo, " + r.nama;
-    $("pinBox").classList.add("hidden"); $("head").classList.remove("hidden"); $("info").classList.remove("hidden");
-    if(!data.length) $("list").innerHTML = '<div class="card meta">Tidak ada jadwal ulangan aktif untuk Anda hari ini.<br>Pastikan tanggal hari ini di sheet sesuai dan kolom <b>guru</b> berisi username Anda.</div>';
-  }catch(e){ $("msg").textContent = "Gagal terhubung ke server."; }
-  finally{ busy = false; }
+function openForm(row) {
+  editRow = row;
+  const o = row ? (tab === "ujian" ? exams : teachers).find(x => x.rowIndex === row) : {};
+  $("#mTitle").textContent = (row ? "Edit " : "Tambah ") + (tab === "ujian" ? "Ujian" : "Guru");
+  $("#mBody").innerHTML = tab === "ujian"
+    ? `<label>Token</label><div class="row"><input id="f0" value="${esc(o.token)}"><button class="gen ghost" id="gen" type="button">Acak</button></div>
+       <label>Mapel</label><input id="f1" value="${esc(o.mapel)}">
+       <label>Kelas</label><input id="f2" value="${esc(o.kelas)}" placeholder="mis. X-XI SEMUA Jurusan">
+       <label>Link Form</label><input id="f3" value="${esc(o.link)}" placeholder="Tempel link Google Form">
+       <label>Waktu Pengerjaan (menit)</label><input id="f4" type="number" min="1" value="${parseInt(o.waktu) || 90}">
+       <div class="chips" id="wchips"><span class="chip" data-m="30">30</span><span class="chip" data-m="45">45</span><span class="chip" data-m="60">60</span><span class="chip" data-m="90">90</span><span class="chip" data-m="120">120</span></div>`
+    : `<label>Nama Guru</label><input id="f0" value="${esc(o.nama)}">
+       <label>Password</label><input id="f1" value="${esc(o.password)}">
+       <label>Daftar Token</label><input id="f2" value="${esc(o.tokens)}" placeholder="pisahkan dengan koma, mis. 456, 789">
+       <p class="mut">Token tersedia: ${esc(exams.map(x => x.token).join(", ") || "-")}</p>`;
+  const wc = $("#wchips");
+  if (wc) wc.onclick = e => { const m = e.target.dataset.m; if (m) $("#f4").value = m; };
+  const g = $("#gen");
+  if (g) g.onclick = () => {
+    const used = new Set(exams.map(x => String(x.token))); let t;
+    do { t = String(Math.floor(10000 + Math.random() * 90000)); } while (used.has(t));
+    $("#f0").value = t;
+  };
+  $("#modal").classList.add("show");
 }
 
-function gambar(){
-  if(!data.length) return;
-  const el = Math.floor((Date.now()-fetchedAt)/1000);
-  $("list").innerHTML = data.map(d=>{
-    const sisa = d.sisa - el, total = d.rotasi*60;
-    return '<div class="card"><div class="meta">'+esc(d.mapel)+' · '+esc(d.kelas)+' · '+esc(d.jam)+'</div>'
-      +'<div class="tok">'+esc(d.token)+'</div>'
-      +'<div class="meta">Berganti dalam <span class="sisa'+(sisa<60?' warn':'')+'">'+fmt(sisa)+'</span></div>'
-      +'<div class="bar"><i style="width:'+Math.max(0,Math.min(100,sisa/total*100))+'%"></i></div></div>';
-  }).join("");
-  if(data.some(d=>d.sisa-el<=0)) muat();
+const HAS_GS = typeof google !== "undefined" && !!google.script && !!google.script.run;
+let PASS = "";
+
+function authFail(e) {
+  const m = (e && e.message) || String(e);
+  if (/password/i.test(m)) logout();
+  toast(m, true);
+}
+function logout() {
+  PASS = ""; exams = []; teachers = [];
+  $("#appView").style.display = "none"; $("#loginView").style.display = "block"; $("#pw").value = "";
+}
+function loginMsg(m) { const e = $("#loginErr"); e.textContent = m; e.style.display = m ? "block" : "none"; }
+function login() {
+  const p = $("#pw").value.trim(); if (!p) return loginMsg("Isi password dulu.");
+  loginMsg("");
+  if (!HAS_GS) return loginMsg("Halaman ini harus dibuka dari URL ...exec?page=admin (bukan dari file HTML di komputer).");
+  const b = $("#btnLogin"); b.disabled = true;
+  google.script.run
+    .withSuccessHandler(() => { PASS = p; b.disabled = false; $("#loginView").style.display = "none"; $("#appView").style.display = "block"; reload(); })
+    .withFailureHandler(e => {
+      b.disabled = false; const m = (e && e.message) || String(e);
+      loginMsg(/not a function|not defined/i.test(m) ? "Script di server belum versi terbaru. Tempel Kode.gs terbaru, lalu Terapkan > Kelola penerapan > Edit > Versi baru." : m);
+    })
+    .adminLogin(p);
+}
+function reload() {
+  google.script.run.withSuccessHandler(r => { exams = r || []; render(); }).withFailureHandler(authFail).adminGetExams(PASS);
+  google.script.run.withSuccessHandler(r => { teachers = r || []; render(); }).withFailureHandler(authFail).adminGetTeachers(PASS);
 }
 
-$("masuk").onclick = async ()=>{
-  user = $("user").value; pw = $("pass").value; $("msg").textContent = "";
-  if(!user) return $("msg").textContent = "Pilih nama guru terlebih dahulu.";
-  if(!pw) return $("msg").textContent = "Password wajib diisi.";
-  $("masuk").disabled = true; $("masuk").textContent = "Memeriksa...";
-  await muat(); gambar();
-  $("masuk").disabled = false; $("masuk").textContent = "Masuk";
+function run(fn, arg, after) {
+  if (!HAS_GS) { toast("Buka dari URL ...exec?page=admin agar bisa menyimpan", true); $("#mSave").disabled = false; return; }
+  google.script.run
+    .withSuccessHandler(r => {
+      if (r && r.status === "success") { toast(r.message + " ✓"); if (after) after(); reload(); }
+      else toast((r && r.message) || "Gagal", true);
+      $("#mSave").disabled = false;
+    })
+    .withFailureHandler(e => { $("#mSave").disabled = false; authFail(e); })[fn](PASS, arg);
+}
+
+function save() {
+  let form, fn;
+  if (tab === "ujian") {
+    const v = [0, 1, 2, 3, 4].map(i => $("#f" + i).value.trim());
+    if (!v[0] || !v[1] || !v[3]) return toast("Token, Mapel, dan Link Form wajib diisi", true);
+    form = { token: v[0], mapel: v[1], kelas: v[2], link: v[3], waktu: (v[4] || "90") + " Menit" };
+    fn = editRow ? "adminEditExam" : "adminAddExam";
+  } else {
+    const v = [0, 1, 2].map(i => $("#f" + i).value.trim());
+    if (!v[0] || !v[1]) return toast("Nama dan Password wajib diisi", true);
+    form = { nama: v[0], password: v[1], tokens: v[2] };
+    fn = editRow ? "adminEditTeacher" : "adminAddTeacher";
+  }
+  if (editRow) form.rowIndex = editRow;
+  $("#mSave").disabled = true;
+  run(fn, form, () => $("#modal").classList.remove("show"));
+}
+
+function del(row) {
+  const list = tab === "ujian" ? exams : teachers, o = list.find(x => x.rowIndex === row);
+  if (!confirm("Hapus data ini?\n" + (tab === "ujian" ? o.token + " · " + o.mapel : o.nama))) return;
+  run(tab === "ujian" ? "adminDeleteExam" : "adminDeleteTeacher", row);
+}
+
+$("#btnRefresh").onclick = reload;
+$("#btnAdd").onclick = () => openForm(null);
+$("#q").oninput = render;
+$("#mCancel").onclick = () => $("#modal").classList.remove("show");
+$("#mSave").onclick = save;
+$(".tabs").onclick = e => {
+  const t = e.target.dataset.t; if (!t) return;
+  tab = t; document.querySelectorAll(".tabs button").forEach(b => b.classList.toggle("on", b.dataset.t === t));
+  $("#q").value = ""; render();
 };
-
-$("pass").addEventListener("keydown",e=>{if(e.key==="Enter")$("masuk").click()});
-$("keluar").onclick = keluar;
-setInterval(()=>{ if(user) gambar(); },1000);
-setInterval(()=>{ if(user) muat(); },30000);
-daftarGuru();
+$("#tbl").onclick = e => {
+  if (e.target.dataset.e) openForm(+e.target.dataset.e);
+  if (e.target.dataset.d) del(+e.target.dataset.d);
+};
+$("#btnLogin").onclick = login;
+$("#pw").addEventListener("keydown", e => e.key === "Enter" && login());
+$("#btnOut").onclick = logout;
 </script>
 </body>
 </html>
